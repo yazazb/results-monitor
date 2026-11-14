@@ -12,8 +12,14 @@ PAGES = [
 
 STATE_FILE = "state.json"
 
-BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
-CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
+BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
+
+if not BOT_TOKEN:
+    raise ValueError("Missing GitHub secret: TELEGRAM_BOT_TOKEN")
+
+if not CHAT_ID:
+    raise ValueError("Missing GitHub secret: TELEGRAM_CHAT_ID")
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 SLLCResultsMonitor/1.0"
